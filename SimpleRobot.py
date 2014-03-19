@@ -1,5 +1,4 @@
 import numpy, openravepy
-import IPython
 
 class SimpleRobot(object):
 
@@ -10,11 +9,11 @@ class SimpleRobot(object):
 
         right_relaxed = [ 0., 0., 0., -2.3, 0., 0., 0.]
         left_relaxed = [ 0., 0., 0., -2.3, 0., 0., 0.]
-
+        
         right_manip = self.robot.GetManipulator('rightarm')
         self.robot.SetActiveDOFs(right_manip.GetArmIndices())
         self.robot.SetActiveDOFValues(right_relaxed)
-
+        
         left_manip = self.robot.GetManipulator('leftarm')
         self.robot.SetActiveDOFs(left_manip.GetArmIndices())
         self.robot.SetActiveDOFValues(left_relaxed)
@@ -30,7 +29,7 @@ class SimpleRobot(object):
         # Create a trajectory and insert all points
         traj = openravepy.RaveCreateTrajectory(self.robot.GetEnv(), 'GenericTrajectory')
 
-        doft = openravepy.DOFAffine.X | openravepy.DOFAffine.Y
+        doft = openravepy.DOFAffine.X | openravepy.DOFAffine.Y 
         config_spec = openravepy.RaveGetAffineConfigurationSpecification(doft, self.robot)
         traj.Init(config_spec)
 
@@ -41,7 +40,7 @@ class SimpleRobot(object):
         return traj
 
     def ExecuteTrajectory(self, traj):
-
+        
         # Send the trajectory to the controller and wait for execution to complete
         max_vel = self.robot.GetAffineTranslationMaxVels()[:2]
         max_accel = 3 * max_vel

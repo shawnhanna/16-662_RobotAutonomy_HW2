@@ -31,3 +31,7 @@ class RRTTree(object):
     def AddEdge(self, sid, eid):
         self.edges[eid] = sid
 
+    def VerticesLength(self):
+        x = len(self.vertices)
+        return x
+

@@ -9,7 +9,8 @@ from SimpleEnvironment import SimpleEnvironment
 
 from RRTPlanner import RRTPlanner
 from RRTConnectPlanner import RRTConnectPlanner
-import IPython
+#import IPython
+#IPython.embed()
 
 def main(robot, planning_env, planner):
 
@@ -22,14 +23,15 @@ def main(robot, planning_env, planner):
         goal_config = numpy.array([2.0, 0.0])
 
     plan = planner.Plan(start_config, goal_config)
+    print "Total number of vertices in the plan:", len(plan)
     plan_short = planning_env.ShortenPath(plan)
     traj = robot.ConvertPlanToTrajectory(plan_short)
     robot.ExecuteTrajectory(traj)
 
 if __name__ == "__main__":
-
+    
     parser = argparse.ArgumentParser(description='script for testing planners')
-
+    
     parser.add_argument('-r', '--robot', type=str, default='simple',
                         help='The robot to load (herb or simple)')
     parser.add_argument('-p', '--planner', type=str, default='rrt',
@@ -40,10 +42,10 @@ if __name__ == "__main__":
                         help='Enable visualization of tree growth (only applicable for simple robot)')
     parser.add_argument('-d', '--debug', action='store_true',
                         help='Enable debug logging')
-
+    
 
     args = parser.parse_args()
-
+    
     openravepy.RaveInitialize(True, level=openravepy.DebugLevel.Info)
     openravepy.misc.InitOpenRAVELogging()
 
@@ -78,5 +80,8 @@ if __name__ == "__main__":
 
     main(robot, planning_env, planner)
 
-    import IPython
-    IPython.embed()
+    #import IPython
+    #IPython.embed()
+
+        
+    
